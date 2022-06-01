@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
 import Header from '../layouts/Header.vue'
+import Footer from '../layouts/Footer.vue'
 
 const routes = [
   {
@@ -21,6 +22,11 @@ const routes = [
     path: '/header',
     name: 'HeaderPage',
     component: Header
+  },
+  {
+    path: '/footer',
+    name: 'FooterPage',
+    component: Footer
   }
 ]
 
