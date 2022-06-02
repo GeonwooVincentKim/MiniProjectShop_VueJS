@@ -11,7 +11,7 @@
             <router-link class="nav-link" to="/">Home</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link active" to="/">Prouct List</router-link>
+            <router-link class="nav-link active" to="/">Product List</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/detail">Product Detail Page</router-link>
