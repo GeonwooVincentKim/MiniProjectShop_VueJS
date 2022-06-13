@@ -1,13 +1,13 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <div>
-    <Header />
-    <router-view/>
-    <Footer />
-  </div>
+    <nav>
+        <router-link to="/">Home</router-link> |
+        <router-link to="/about">About</router-link>
+    </nav>
+    <div>
+        <Header />
+        <router-view/>
+        <Footer />
+    </div>
 </template>
 <script>
 import Header from './layouts/Header'
