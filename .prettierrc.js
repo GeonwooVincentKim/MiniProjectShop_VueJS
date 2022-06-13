@@ -5,7 +5,7 @@ module.exports = {
     tabWidth: 4,
     trailingComma: 'none',
     printWidth: 200,
-    arrowParens: 'avoid'
-    // bracketSpacing: true,
-    // endOfLine: "auto"
+    arrowParens: 'avoid',
+    bracketSpacing: true,
+    endOfLine: "auto"
 }
