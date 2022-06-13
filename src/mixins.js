@@ -48,5 +48,40 @@ export default {
             maxFractionDigits = format.length - format.indexOf(".") - 1
          }
       }
+
+      var prefix = ""
+      var d = ""
+      var dec = 1
+      
+      for (var i = 0; i < maxFractionDigits; i++) {
+         dec = dec * 10
+      }
+
+      var v = String(Math.round(parseFloat(value) * dec) / dec)
+
+      if (v.indexOf("-") > -1) {
+         prefix = "-"
+         v = v.substring(1)
+      }
+
+      if (maxFractionDigits > 0 && format.substring(format.length - 1, format.length) == '0') {
+         v = String(parseFloat(v).toFixed(maxFractionDigits))
+      }
+
+      if (maxFractionDigits > 0 && v.indexOf(".") > 1) {
+         d = v.substring(v.indexOf("."))
+         d = d.replace(".", decimalSeparator)
+         v = v.substring(0, v.indexOf("."))
+      }
+
+      var regExp = /\D/g
+      v = v.replace(regExp, "")
+      
+      var r = /(\d+)(\d{3})/
+      while (r.test(v)) {
+         v = v.replace(r, '$1' + groupingSeparator + '$2')
+      }
+
+      return prefix + currency + String(v) + String(d)
    }
 }
