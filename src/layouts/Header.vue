@@ -30,6 +30,56 @@
 </template>
 <script>
 export default {
-  name: 'HeaderPage'
+    name: 'HeaderPage',
+    computed: {
+        user () {
+            return this.$store.state.user
+        }
+    },
+
+    methods: {
+        kakaoLogin () {
+            window.Kakao.Auth.login({
+                scope: 'profile, account_email, gender',
+                success: this.getProfile
+            })
+        },
+
+        getProfile (authObj) {
+            console.log(authObj)
+            window.Kakao.API.request({
+                url: '/v2/user/me',
+                success: res => {
+                    const kakao_account = res.kakao_account
+                    console.log(kakao_account)
+
+                    this.login(kakao_account)
+                    alert("Login Successed!!!")
+                }
+            })
+        },
+
+        async login (kakao_account) {
+            await this.$api("/api/login", {
+                param: [
+                    {email: kakao_account.email, nickname: kakao_account.profile.nickname},
+                    {nickname: kakao_account.profile.nickname}
+                ]
+            })
+
+            this.$store.commit("user", kakao_account)
+        },
+
+        kakaoLogout () {
+            window.Kakao.Auth.logout((response) => {
+                console.log(response)
+                
+                this.$store.commit("user", {})
+                alert("Logout")
+
+                this.$router.push({path: '/'})
+            })
+        }
+    }
 }
 </script>
