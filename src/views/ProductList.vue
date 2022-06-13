@@ -38,6 +38,7 @@
 </template>
 <script>
 export default {
+    name: 'ProductList',
     data () {
         return {
             productList: []
