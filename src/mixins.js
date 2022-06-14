@@ -23,11 +23,11 @@ export default {
         })
     },
 
-    $currencyFormat(value, format = '#, ###') {
+    $currencyFormat(value, format = '#,###') {
         if (value === 0 || value === null) return 0
 
         var currency = format.substring(0, 1)
-        if (currency === '$' || currency === '\\') {
+        if (currency === '$' || currency === '₩') {
             format = format.substring(1, format.length)
         } else {
             currency = ''
