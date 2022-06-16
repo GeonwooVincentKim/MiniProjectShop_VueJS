@@ -31,6 +31,11 @@
                                     <span class="badge bg-mark me-1">{{ productDetail.category2 }}</span>
                                     <span class="badge bg-mark">{{ productDetail.category3 }}</span>
                                 </p>
+                                <p class="card-text pb-3">
+                                    배송비 {{ getCurrencyFormat(productDetail.delivery_price) }}원 |
+                                    도서산간 (제주도) 배송비 추가 {{ getCurrencyFormat(productDetail.add_delivery_price) }}원 |
+                                    택배배송 | {{ productDetail.outbound_days }} 일 이내 출고 (주말, 공휴일 제외)
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -44,8 +49,48 @@ export default {
     name: 'ProductDetail',
     data () {
         return {
-            
+            productId: 0,
+            productDetail: {},
+            productImage: [],
+            total: 1,
+            totalPrice: 0
         }
     },
+    
+    created () {
+        this.productId = this.$route.query.product_id
+        this.getProductDetail()
+        this.getProductImage()
+    },
+
+    methods: {
+        calculatePrice (count) {
+            let total = this.total + count
+            if (total < 1 ) total = 1
+
+            this.total = total
+            this.totalPrice = this.productDetail.product_price * this.total
+        },
+
+        getCurrencyFormat (value) {
+            return this.$currencyFormat(value)
+        },
+
+        async getProductDetail () {
+            let productDetail = await this.$api("/api/productDetail", { param: [this.productId]})
+
+            if (productDetail.length > 0) {
+                this.productDetail = productDetail[0]
+                this.totalPrice = this.totalPrice = this.productDetail.product_price * this.total
+            }
+
+            console.log(this.productDetail)
+        },
+
+        async getProductImage () {
+            this.productImage = await this.$api("/api/productMainImages", {param: [this.productId]})
+            console.log('this.productImage', this.productImage)
+        }
+    }
 }
 </script>
